@@ -8,7 +8,7 @@ import json
 import csv
 import numpy as np
 import math
-#from PIL import Image
+from PIL import Image
 
 def histogram_times(filename):
     airplane_data = []
@@ -85,9 +85,7 @@ def reflections_and_projections(points):
         vector = np.matrix(points[:,x])
         vector = np.transpose(vector)
 
-        reflectionMatrix = np.array([[1, 0], [0, -1]])
-        vector = np.matmul(reflectionMatrix, vector)
-        vector[1] += 1
+        vector[1] = 2 - vector[1]
 
         rotationMatrix = np.array([[0, -1], [1, 0]])
         vector = np.matmul(rotationMatrix, vector)
@@ -101,7 +99,7 @@ def reflections_and_projections(points):
 
     return np.transpose(np.concatenate(output))
 
-#x = np.array([[1, 2, 5], [3, 4, 2]])
+#x = np.array([[1, 3, 5, 7], [2, 4, 6, 8]])
 #print(reflections_and_projections(x))
 
 
@@ -118,13 +116,13 @@ def normalize(image):
 
     return newImage
 
-#testImage = np.random.rand(32, 32) * 200
-#testIm = Image.fromarray(testImage)
-#testIm.show()
-#
-#normalized = Image.fromarray(normalize(testImage))
-#normalized.show()
-#print(normalized)
+testImage = np.random.rand(32, 32) * 200
+testIm = Image.fromarray(testImage)
+testIm.show()
+
+normalized = Image.fromarray(normalize(testImage))
+normalized.show()
+print(normalized)
 
 def sigmoid_normalize(image, variance):
 
